@@ -1,7 +1,7 @@
 import Header from './Header.jsx'
 import Footer from './Footer.jsx'
+import SearchToggle from './SearchToggle.jsx'
 import PlaylistSearch from './PlaylistSearch.jsx'
-// import PlaylistSorter from './PlaylistSorter.jsx'
 import { useState, useEffect, createContext } from 'react'
 
 function App() {
@@ -11,6 +11,7 @@ function App() {
 
 	const [accessToken, setAccessToken] = useState('')
 	const [profileName, setProfileName] = useState('')
+	const [useSearch, setUseSearch] = useState(false)
 
 	useEffect(() => {
 		const userLogin = async () => {
@@ -95,15 +96,18 @@ function App() {
 		return await result.json()
 	}
 
-	const handleSearchToggle = () => {
-		setUseSearch(prev => !prev)
-	}
-
 	return (
 		<>
 		{profileName && <Header user={profileName}/>}
-		{accessToken && <PlaylistSearch token={accessToken}/>}
-		{/* <PlaylistSorter /> */}
+		<div className='toggle'>
+			<div className='toggle-left'>
+				{accessToken && <SearchToggle f={() => setUseSearch(false)} text='My Playlists'/>}
+			</div>
+			<div className='toggle-right'>
+				{accessToken && <SearchToggle f={() => setUseSearch(true)} text='Search for Playlist'/>}
+			</div>
+		</div>
+		{accessToken && useSearch && <PlaylistSearch token={accessToken}/>}
 		<Footer />
 		</>
 	);
