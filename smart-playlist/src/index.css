@@ -1,0 +1,126 @@
+.header {
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+
+.header .header-text {
+  color: lightseagreen;
+}
+
+.footer {
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+
+.searchToggle-container {
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+.searchToggle-container .searchToggle-left {
+  flex: 1;
+  padding: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  overflow: auto;
+  text-align: center;
+}
+
+.searchToggle-container .searchToggle-leftButton {
+  /* border: none; */
+  background-color: white;
+  cursor: pointer;
+}
+
+.searchToggle-container .searchToggle-right {
+  flex: 1;
+  padding: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  overflow: auto;
+  text-align: center;
+}
+
+.searchToggle-container .searchToggle-rightButton {
+  /* border: none; */
+  background-color: white;
+  cursor: pointer;
+}
+
+.playlistSearch {
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+
+.playlistSearch .playlistSearch-box {
+  padding: 3px;
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: medium;
+  border-width: 1px;
+  /* box-shadow: 3px 3px 5px black; */
+}
+
+.playlistSearch .playlistSearch-button {
+  padding: 3px;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-width: 1px;
+  box-shadow: 3px 3px 5px lightseagreen;
+  background-color: lightseagreen;
+  font-size: medium;
+  color: white;
+}
+
+.playlistSearch .playlistSearch-list{
+  padding: 3px;
+  list-style: none;
+}
+
+.playlistSearch .playlistSearch-listItem{
+  padding: 3px;
+  list-style: none;
+}
+
+.playlistSearch .playlistSearch-listItemButton{
+  /* border: none; */
+  background-color: white;
+  cursor: pointer;
+}
+
+.playlistSearch .playlistSearch-container {
+  display: flex;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+.playlistSearch .playlistSearch-containerLeft {
+  flex: 1;
+  padding: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  overflow: auto;
+}
+
+.playlistSearch .playlistSearch-containerRight {
+  flex: 1;
+  padding: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  overflow: auto;
+}
+
+.playlistSorter .playlistSorter-button {
+  padding: 3px;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-width: 1px;
+  box-shadow: 3px 3px 5px lightseagreen;
+  background-color: lightseagreen;
+  font-size: medium;
+  color: white;
+}
