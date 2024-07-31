@@ -12,24 +12,32 @@
   text-align: center;
 }
 
+.primary {
+  background-color: lightseagreen;
+  color: white;
+}
+
+.secondary {
+  background-color: white;
+  color: black;
+}
+
 .toggle {
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
   text-align: center;
 }
 
-.toggle .toggle-left {
-  flex: 1;
-}
-
-.toggle .toggle-right {
+.toggle .toggleButton {
   flex: 1;
 }
 
 .searchToggle-button {
   padding: 5px;
+  font-size: medium;
   cursor: pointer;
-  width: 90%;
+  width: 50%;
+  transition: background-color 0.3s ease;
 }
 
 .playlistSearch {

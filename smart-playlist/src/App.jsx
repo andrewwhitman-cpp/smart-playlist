@@ -100,11 +100,11 @@ function App() {
 		<>
 		{profileName && <Header user={profileName}/>}
 		<div className='toggle'>
-			<div className='toggle-left'>
-				{accessToken && <SearchToggle f={() => setUseSearch(false)} text='My Playlists'/>}
+			<div className={'toggleButton'}>
+				{accessToken && <SearchToggle f={() => setUseSearch(false)} highlight={!useSearch} text='My Playlists'/>}
 			</div>
-			<div className='toggle-right'>
-				{accessToken && <SearchToggle f={() => setUseSearch(true)} text='Search for Playlist'/>}
+			<div className={'toggleButton'}>
+				{accessToken && <SearchToggle f={() => setUseSearch(true)} highlight={useSearch} text='Search for Playlist'/>}
 			</div>
 		</div>
 		{accessToken && useSearch && <PlaylistSearch token={accessToken}/>}

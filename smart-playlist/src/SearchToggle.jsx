@@ -1,7 +1,7 @@
-function SearchToggle({ f, text }) {
+function SearchToggle({ f, highlight, text }) {
 	return (
         <div>
-            <button className='searchToggle-button' onClick={f}>{text}</button>
+            <button className={`searchToggle-button ${highlight ? 'primary' : 'secondary'}`} onClick={f}>{text}</button>
         </div>
 	)
 }
