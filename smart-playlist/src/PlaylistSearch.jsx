@@ -11,13 +11,13 @@ function PlaylistSearch(props) {
     }
     
     function submitQuery() {
-        let queryLimit = 15
+        let limit = 15
         handleClearQueryResult()
         handleClearPlaylistOwners()
-        searchPlaylist(token, query, queryLimit)
+        searchPlaylist(token, query, limit)
             .then(data => {
                 console.log(data)
-                for (let i = 0; i < queryLimit; i++) {
+                for (let i = 0; i < limit; i++) {
                     let playlistName = data.playlists.items[i].name
                     let playlistOwner = data.playlists.items[i].owner.display_name
                     handleAddQueryResult(playlistName)
@@ -69,19 +69,19 @@ function PlaylistSearch(props) {
             <div className='playlistSearch-container'>
                 <div className='playlistSearch-containerLeft'>
                     <h3>Playlists</h3>
-                    <ul className='playlistSearch-list'>
+                    <ul className='resultList'>
                         {queryResults.map((item, index) => 
-                        <li className='playlistSearch-listItem' key={index}>
-                            <button className='playlistSearch-listItemButton'>{item}</button>
+                        <li className='resultListItem' key={index}>
+                            <button className='resultListButton'>{item}</button>
                         </li>)}
                     </ul>
                 </div>
                 <div className='playlistSearch-containerRight'>
                     <h3>Owner</h3>
-                    <ul className='playlistSearch-list'>
+                    <ul className='resultList'>
                         {playlistOwners.map((item, index) => 
-                        <li className='playlistSearch-listItem' key={index}>
-                            <button className='playlistSearch-listItemButton'>{item}</button>
+                        <li className='resultListItem' key={index}>
+                            <button className='resultListButton'>{item}</button>
                         </li>)}
                     </ul>
                 </div>

@@ -22,13 +22,13 @@
   color: black;
 }
 
-.toggle {
+.toggleDiv {
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
   text-align: center;
 }
 
-.toggle .toggleButton {
+.toggleDiv .toggleOption {
   flex: 1;
 }
 
@@ -38,6 +38,27 @@
   cursor: pointer;
   width: 50%;
   transition: background-color 0.3s ease;
+}
+
+.resultList{
+  padding: 3px;
+  list-style: none;
+}
+
+.resultListItem{
+  padding: 3px;
+  list-style: none;
+}
+
+.resultListButton{
+  /* border: none; */
+  background-color: white;
+  cursor: pointer;
+}
+
+.userPlaylists {
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
 }
 
 .playlistSearch {
@@ -63,22 +84,6 @@
   background-color: lightseagreen;
   font-size: medium;
   color: white;
-  cursor: pointer;
-}
-
-.playlistSearch .playlistSearch-list{
-  padding: 3px;
-  list-style: none;
-}
-
-.playlistSearch .playlistSearch-listItem{
-  padding: 3px;
-  list-style: none;
-}
-
-.playlistSearch .playlistSearch-listItemButton{
-  /* border: none; */
-  background-color: white;
   cursor: pointer;
 }
 

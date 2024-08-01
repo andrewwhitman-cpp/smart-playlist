@@ -1,6 +1,7 @@
 import Header from './Header.jsx'
 import Footer from './Footer.jsx'
 import SearchToggle from './SearchToggle.jsx'
+import UserPlaylists from './UserPlaylists.jsx'
 import PlaylistSearch from './PlaylistSearch.jsx'
 import { useState, useEffect, createContext } from 'react'
 
@@ -11,6 +12,7 @@ function App() {
 
 	const [accessToken, setAccessToken] = useState('')
 	const [profileName, setProfileName] = useState('')
+	const [profileID, setProfileID] = useState('')
 	const [useSearch, setUseSearch] = useState(false)
 
 	useEffect(() => {
@@ -25,6 +27,7 @@ function App() {
 						fetchProfile(tokenResponse)
 							.then(profileResponse => {
 								setProfileName(profileResponse.display_name)
+								setProfileID(profileResponse.id)
 							})
 					})
 			}
@@ -99,15 +102,20 @@ function App() {
 	return (
 		<>
 		{profileName && <Header user={profileName}/>}
-		<div className='toggle'>
-			<div className={'toggleButton'}>
+		
+		<div className='toggleDiv'>
+			<div className={'toggleOption'}>
 				{accessToken && <SearchToggle f={() => setUseSearch(false)} highlight={!useSearch} text='My Playlists'/>}
 			</div>
-			<div className={'toggleButton'}>
+			<div className={'toggleOption'}>
 				{accessToken && <SearchToggle f={() => setUseSearch(true)} highlight={useSearch} text='Search for Playlist'/>}
 			</div>
 		</div>
+
+		{accessToken && !useSearch && <UserPlaylists token={accessToken} userID={profileID} toggle={useSearch}/>}
+
 		{accessToken && useSearch && <PlaylistSearch token={accessToken}/>}
+
 		<Footer />
 		</>
 	);
