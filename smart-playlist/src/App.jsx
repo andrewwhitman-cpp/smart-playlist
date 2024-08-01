@@ -4,6 +4,7 @@ import SearchToggle from './SearchToggle.jsx'
 import UserPlaylists from './UserPlaylists.jsx'
 import PlaylistSearch from './PlaylistSearch.jsx'
 import { useState, useEffect, createContext } from 'react'
+import CurrentPlaylist from './CurrentPlaylist.jsx'
 
 function App() {
 	const clientId = '9e2d4dd8eba243c9a01de32cb6b428c6'
@@ -14,6 +15,7 @@ function App() {
 	const [profileName, setProfileName] = useState('')
 	const [profileID, setProfileID] = useState('')
 	const [useSearch, setUseSearch] = useState(false)
+	const [currentPlaylistName, setCurrentPlaylistName] = useState('')
 
 	useEffect(() => {
 		const userLogin = async () => {
@@ -112,9 +114,13 @@ function App() {
 			</div>
 		</div>
 
-		{accessToken && !useSearch && <UserPlaylists token={accessToken} userID={profileID} toggle={useSearch}/>}
+		<hr></hr>
+
+		{accessToken && !useSearch && <UserPlaylists f={(data) => setCurrentPlaylistName(data)} token={accessToken} userID={profileID} toggle={useSearch}/>}
 
 		{accessToken && useSearch && <PlaylistSearch token={accessToken}/>}
+
+		{currentPlaylistName && <CurrentPlaylist title={currentPlaylistName}/>}
 
 		<Footer />
 		</>
