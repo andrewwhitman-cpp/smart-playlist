@@ -37,6 +37,10 @@ function App() {
 		}
 		userLogin()
 	}, [])
+
+	useEffect(() => {
+		setCurrentPlaylistName('')
+	}, [useSearch])
 	
 	async function redirectToAuthCodeFlow(clientId) {
 		const verifier = generateCodeVerifier(128)
