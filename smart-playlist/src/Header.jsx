@@ -1,22 +1,23 @@
+import { Typography } from "@mui/material"
+
 function Header(props) {
 	return (
-		<header className="header">
-			<h1 className="header-title">
+		<Typography
+			// sx={{ my: 4, textAlign: "center" }}
+		>
+			<Typography
+				variant="h2"
+			>
 				Smart Playlist Sorter
-			</h1>
-			<h4 className="header-text">
+			</Typography>
+			<Typography
+				variant="h5"
+				color={"tertiary.main"}
+			>
 				Logged in as {props.user ? props.user : "Nobody"}
-			</h4>
-			{/* <nav className="header-nav">
-				<ul>
-					<li><a href='#'>Home</a></li>
-					<li><a href='#'>About</a></li>
-					<li><a href='#'>Services</a></li>
-					<li><a href='#'>Contact</a></li>
-				</ul>
-			</nav> */}
+			</Typography>
 			<hr></hr>
-		</header>
+		</Typography>
 	)
 }
 

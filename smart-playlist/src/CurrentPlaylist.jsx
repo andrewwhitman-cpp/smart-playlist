@@ -1,6 +1,6 @@
 function CurrentPlaylist(props) {
 	return (
-        <div className={'currentPlaylist'}>
+        <div>
             {props.title}
         </div>
 	)

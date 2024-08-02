@@ -40,11 +40,11 @@ function UserPlaylists(props) {
     }
 
 	return (
-        <div className="userPlaylists">
-            <ul className='resultList'>
+        <div>
+            <ul>
                 {queryResults.map((item, index) => 
-                <li className='resultListItem' key={index}>
-                    <button className='resultListButton' onClick={() => props.f(item)}>{item}</button>
+                <li key={index}>
+                    <button onClick={() => props.f(item)}>{item}</button>
                 </li>)}
             </ul>
         </div>

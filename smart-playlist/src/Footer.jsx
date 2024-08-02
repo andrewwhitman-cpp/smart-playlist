@@ -2,7 +2,7 @@
 
 function Footer() {
     return (
-        <footer className="footer">
+        <footer>
             <hr></hr>
             <p>
                 &copy; {new Date().getFullYear()} SmartPlaylist

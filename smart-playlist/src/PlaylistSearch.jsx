@@ -52,9 +52,9 @@ function PlaylistSearch(props) {
     }
 
     return (
-        <div className="playlistSearch">
+        <div>
 
-            <div className="playlistSearch-text">
+            <div>
                 <p>
                     Search for a playlist to order its songs by similarity.
                 </p>
@@ -62,26 +62,26 @@ function PlaylistSearch(props) {
 
 
             <div>
-                <input className="playlistSearch-box" onChange={changeQuery} value={query} placeholder='Enter playlist name'></input>
-                <button className="playlistSearch-button" onClick={submitQuery}>Submit</button>
+                <input onChange={changeQuery} value={query} placeholder='Enter playlist name'></input>
+                <button onClick={submitQuery}>Submit</button>
             </div>
 
-            <div className='playlistSearch-container'>
-                <div className='playlistSearch-containerLeft'>
+            <div>
+                <div>
                     <h3>Playlists</h3>
-                    <ul className='resultList'>
+                    <ul>
                         {queryResults.map((item, index) => 
-                        <li className='resultListItem' key={index}>
-                            <button className='resultListButton'>{item}</button>
+                        <li  key={index}>
+                            <button>{item}</button>
                         </li>)}
                     </ul>
                 </div>
-                <div className='playlistSearch-containerRight'>
+                <div>
                     <h3>Owner</h3>
-                    <ul className='resultList'>
+                    <ul>
                         {playlistOwners.map((item, index) => 
-                        <li className='resultListItem' key={index}>
-                            <button className='resultListButton'>{item}</button>
+                        <li key={index}>
+                            <button>{item}</button>
                         </li>)}
                     </ul>
                 </div>

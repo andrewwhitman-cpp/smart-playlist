@@ -1,3 +1,4 @@
+import { Container, Typography } from "@mui/material"
 import Header from './Header.jsx'
 import Footer from './Footer.jsx'
 import SearchToggle from './SearchToggle.jsx'
@@ -102,28 +103,32 @@ function App() {
 	}
 
 	return (
-		<>
-		{profileName && <Header user={profileName}/>}
-		
-		<div className='toggleDiv'>
-			<div className={'toggleOption'}>
-				{accessToken && <SearchToggle f={() => setUseSearch(false)} highlight={!useSearch} text='My Playlists'/>}
+		<Container sx={{ 
+			bgcolor: "primary.main", 
+			textAlign: "center",
+			fontFamily: "arial" }}
+		>
+			{profileName && <Header user={profileName}/>}
+			
+			<div>
+				<div>
+					{accessToken && <SearchToggle f={() => setUseSearch(false)} highlight={!useSearch} text='My Playlists'/>}
+				</div>
+				<div>
+					{accessToken && <SearchToggle f={() => setUseSearch(true)} highlight={useSearch} text='Search for Playlist'/>}
+				</div>
 			</div>
-			<div className={'toggleOption'}>
-				{accessToken && <SearchToggle f={() => setUseSearch(true)} highlight={useSearch} text='Search for Playlist'/>}
-			</div>
-		</div>
 
-		<hr></hr>
+			<hr></hr>
 
-		{accessToken && !useSearch && <UserPlaylists f={(data) => setCurrentPlaylistName(data)} token={accessToken} userID={profileID} toggle={useSearch}/>}
+			{accessToken && !useSearch && <UserPlaylists f={(data) => setCurrentPlaylistName(data)} token={accessToken} userID={profileID} toggle={useSearch}/>}
 
-		{accessToken && useSearch && <PlaylistSearch token={accessToken}/>}
+			{accessToken && useSearch && <PlaylistSearch token={accessToken}/>}
 
-		{currentPlaylistName && <CurrentPlaylist title={currentPlaylistName}/>}
+			{currentPlaylistName && <CurrentPlaylist title={currentPlaylistName}/>}
 
-		<Footer />
-		</>
+			<Footer />
+		</Container>
 	);
 }
 
