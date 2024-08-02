@@ -117,7 +117,7 @@ function App() {
 
 			{accessToken && !useSearch && <UserPlaylists f={(data) => setCurrentPlaylistName(data)} token={accessToken} userID={profileID} toggle={useSearch}/>}
 
-			{accessToken && useSearch && <PlaylistSearch token={accessToken}/>}
+			{accessToken && useSearch && <PlaylistSearch f={(data) => setCurrentPlaylistName(data)} token={accessToken}/>}
 
 			{currentPlaylistName && <CurrentPlaylist title={currentPlaylistName}/>}
 

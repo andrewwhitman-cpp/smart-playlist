@@ -66,7 +66,7 @@ function PlaylistSearch(props) {
             <List>
                 {queryResults.map((item, index) => 
                 <li key={index}>
-                    <button>{item}</button>
+                    <button onClick={() => props.f(item)}>{item}</button>
                 </li>)}
             </List>
         </div>
