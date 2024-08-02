@@ -1,8 +1,10 @@
+import { Typography } from "@mui/material"
+
 function CurrentPlaylist(props) {
 	return (
-        <div>
+        <Typography>
             {props.title}
-        </div>
+        </Typography>
 	)
 }
 

@@ -1,4 +1,4 @@
-import { Container, Typography } from "@mui/material"
+import { Button, Container, Typography } from "@mui/material"
 import Header from './Header.jsx'
 import Footer from './Footer.jsx'
 import SearchToggle from './SearchToggle.jsx'
@@ -104,20 +104,14 @@ function App() {
 
 	return (
 		<Container sx={{ 
-			bgcolor: "primary.main", 
 			textAlign: "center",
 			fontFamily: "arial" }}
 		>
 			{profileName && <Header user={profileName}/>}
 			
-			<div>
-				<div>
-					{accessToken && <SearchToggle f={() => setUseSearch(false)} highlight={!useSearch} text='My Playlists'/>}
-				</div>
-				<div>
-					{accessToken && <SearchToggle f={() => setUseSearch(true)} highlight={useSearch} text='Search for Playlist'/>}
-				</div>
-			</div>
+			<SearchToggle f={() => setUseSearch(false)} text="My Playlists"/>
+
+			<SearchToggle f={() => setUseSearch(true)} text="Search for Playlist"/>
 
 			<hr></hr>
 

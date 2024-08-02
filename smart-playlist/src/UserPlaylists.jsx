@@ -1,3 +1,4 @@
+import { List, ListItem } from "@mui/material"
 import { useEffect, useState } from "react"
 
 function UserPlaylists(props) {
@@ -40,14 +41,12 @@ function UserPlaylists(props) {
     }
 
 	return (
-        <div>
-            <ul>
-                {queryResults.map((item, index) => 
-                <li key={index}>
-                    <button onClick={() => props.f(item)}>{item}</button>
-                </li>)}
-            </ul>
-        </div>
+        <List>
+            {queryResults.map((item, index) => 
+            <li key={index}>
+                <button onClick={() => props.f(item)}>{item}</button>
+            </li>)}
+        </List>
 	)
 }
 

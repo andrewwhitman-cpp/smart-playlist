@@ -1,8 +1,19 @@
-function SearchToggle({ f, highlight, text }) {
+import { Button } from "@mui/material"
+
+function SearchToggle({ f, text }) {
 	return (
-        <div>
-            <button className={`searchToggle-button ${highlight ? 'primary' : 'secondary'}`} onClick={f}>{text}</button>
-        </div>
+        <Button 
+			onClick={f} 
+			sx={{
+				bgcolor: "tertiary.main",
+				color: "secondary.main",
+				p: 1,
+				m: 2,
+				width: "25vw"
+			}}
+        >
+            {text}
+        </Button>
 	)
 }
 

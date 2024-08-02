@@ -1,3 +1,4 @@
+import { Box, Button, List, ListItem, Typography } from '@mui/material'
 import { useState } from 'react'
 
 function PlaylistSearch(props) {
@@ -53,39 +54,21 @@ function PlaylistSearch(props) {
 
     return (
         <div>
-
-            <div>
-                <p>
-                    Search for a playlist to order its songs by similarity.
-                </p>
-            </div>
-
+            <Typography>
+                Search for a playlist to order its songs by similarity.
+            </Typography>
 
             <div>
                 <input onChange={changeQuery} value={query} placeholder='Enter playlist name'></input>
                 <button onClick={submitQuery}>Submit</button>
             </div>
 
-            <div>
-                <div>
-                    <h3>Playlists</h3>
-                    <ul>
-                        {queryResults.map((item, index) => 
-                        <li  key={index}>
-                            <button>{item}</button>
-                        </li>)}
-                    </ul>
-                </div>
-                <div>
-                    <h3>Owner</h3>
-                    <ul>
-                        {playlistOwners.map((item, index) => 
-                        <li key={index}>
-                            <button>{item}</button>
-                        </li>)}
-                    </ul>
-                </div>
-            </div>
+            <List>
+                {queryResults.map((item, index) => 
+                <li key={index}>
+                    <button>{item}</button>
+                </li>)}
+            </List>
         </div>
     )
 }
