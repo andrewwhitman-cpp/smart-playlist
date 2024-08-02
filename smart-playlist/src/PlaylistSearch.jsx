@@ -1,11 +1,10 @@
-import { Box, Button, List, ListItem, Typography } from '@mui/material'
+import { Box, Button, List, ListItem, Table, TableBody, TableCell, Typography } from '@mui/material'
 import { useState } from 'react'
 
 function PlaylistSearch(props) {
     const token = props.token
     const [query, setQuery] = useState("")
     const [queryResults, setQueryResults] = useState([])
-    const [playlistOwners, setPlaylistOwners] = useState([])
 
     const changeQuery = event => {
         setQuery(event.target.value)
@@ -14,15 +13,13 @@ function PlaylistSearch(props) {
     function submitQuery() {
         let limit = 15
         handleClearQueryResult()
-        handleClearPlaylistOwners()
         searchPlaylist(token, query, limit)
             .then(data => {
                 console.log(data)
                 for (let i = 0; i < limit; i++) {
                     let playlistName = data.playlists.items[i].name
                     let playlistOwner = data.playlists.items[i].owner.display_name
-                    handleAddQueryResult(playlistName)
-                    handleAddPlaylistOwner(playlistOwner)
+                    handleAddQueryResult(playlistName + " by " + playlistOwner)
                 }
             })
     }
@@ -33,14 +30,6 @@ function PlaylistSearch(props) {
 
     function handleClearQueryResult() {
         setQueryResults([])
-    }
-
-    function handleAddPlaylistOwner(item) {
-        setPlaylistOwners(l => [...l, item])
-    }
-
-    function handleClearPlaylistOwners() {
-        setPlaylistOwners([])
     }
 
     async function searchPlaylist(token, query, limit) {
@@ -63,12 +52,16 @@ function PlaylistSearch(props) {
                 <button onClick={submitQuery}>Submit</button>
             </div>
 
-            <List>
-                {queryResults.map((item, index) => 
-                <li key={index}>
-                    <button onClick={() => props.f(item)}>{item}</button>
-                </li>)}
-            </List>
+            <Table>
+                {queryResults.map((playlist, index) => 
+                    <TableBody 
+                        key={index} 
+                        onClick={() => props.f(playlist)}
+                    >
+                        {playlist}
+                    </TableBody>
+                )}
+            </Table>
         </div>
     )
 }

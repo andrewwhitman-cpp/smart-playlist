@@ -1,22 +1,25 @@
-import { List, ListItem } from "@mui/material"
+import { List, ListItem, Table, TableBody, TableCell } from "@mui/material"
 import { useEffect, useState } from "react"
 
 function UserPlaylists(props) {
     const token = props.token
     const userID = props.userID
 
-    const [queryResults, setQueryResults] = useState([])
+    const [playlists, setPlaylists] = useState([])
+
 
     useEffect(() => {
         const limit = 50
-        handleClearQueryResult()
+        handleClearPlaylists()
 		const loadUserPlaylists = async () => {
             fetchUserPlaylists(token, limit)
                 .then(data => {
                     console.log(data)
                     for (let i = 0; i < data.items.length; i++) {
                         let playlistName = data.items[i].name
-                        handleAddQueryResult(playlistName)
+                        // let owner = data.items[i].owner.display_name
+                        // handleAddPlaylist(playlistName)
+                        handleAddPlaylist(playlistName)
                     }
                 })
 		}
@@ -32,21 +35,25 @@ function UserPlaylists(props) {
         return await result.json()
     }
 
-    function handleAddQueryResult(item) {
-        setQueryResults(l => [...l, item])
+    function handleAddPlaylist(item) {
+        setPlaylists(l => [...l, item])
     }
 
-    function handleClearQueryResult() {
-        setQueryResults([])
+    function handleClearPlaylists() {
+        setPlaylists([])
     }
 
 	return (
-        <List>
-            {queryResults.map((item, index) => 
-            <li key={index}>
-                <button onClick={() => props.f(item)}>{item}</button>
-            </li>)}
-        </List>
+        <Table>
+            {playlists.map((playlist, index) => 
+                <TableBody 
+                    key={index} 
+                    onClick={() => props.f(playlist)}
+                >
+                    {playlist}
+                </TableBody>
+            )}
+        </Table>
 	)
 }
 
