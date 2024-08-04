@@ -123,7 +123,7 @@ function App() {
 
 			{accessToken && useSearch && <PlaylistSearch f={(data) => setCurrentPlaylist(data)} token={accessToken}/>}
 
-			{currentPlaylist && <CurrentPlaylist token={accessToken} url={currentPlaylist[3]} title={currentPlaylist[1]} active={currentPlaylist}/>}
+			{currentPlaylist && <CurrentPlaylist active={currentPlaylist} token={accessToken} title={currentPlaylist[1]} url={currentPlaylist[3]}/>}
 
 			<Footer />
 		</Container>

@@ -12,7 +12,8 @@ function CurrentPlaylist(props) {
                 console.log(data)
                 for (let i = 0; i < data.items.length; i++) {
                     let songName = data.items[i].track.name
-                    handleAddSong([songName])
+                    let artist = data.items[i].track.artists[0].name
+                    handleAddSong([songName, artist])
                 }
             })
     }, [props.active, props.url])
@@ -47,10 +48,9 @@ function CurrentPlaylist(props) {
         <Table>
             {songs.map((item, index) => 
                 <TableBody 
-                    key={index} 
-                    onClick={() => props.f(item)}
+                    key={index}
                 >
-                    {item}
+                    {item[0] + " by " + item[1]}
                 </TableBody>
             )}
         </Table>
