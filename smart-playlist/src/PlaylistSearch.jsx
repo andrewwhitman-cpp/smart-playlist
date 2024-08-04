@@ -59,6 +59,9 @@ function PlaylistSearch(props) {
                     <TableBody 
                         key={index} 
                         onClick={() => props.f(item)}
+                        sx={{
+                            cursor: "pointer"
+                        }}
                     >
                         {item[1]}
                     </TableBody>

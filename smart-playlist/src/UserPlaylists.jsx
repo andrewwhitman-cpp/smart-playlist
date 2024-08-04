@@ -1,4 +1,4 @@
-import { List, ListItem, Table, TableBody, TableCell } from "@mui/material"
+import { List, ListItem, Table, TableBody, TableCell, TableRow } from "@mui/material"
 import { useEffect, useState } from "react"
 
 function UserPlaylists(props) {
@@ -49,6 +49,9 @@ function UserPlaylists(props) {
                 <TableBody 
                     key={index} 
                     onClick={() => props.f(item)}
+                    sx={{
+                        cursor: "pointer"
+                    }}
                 >
                     {item[1]}
                 </TableBody>
