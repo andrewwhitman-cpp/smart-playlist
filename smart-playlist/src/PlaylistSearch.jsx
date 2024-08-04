@@ -20,7 +20,8 @@ function PlaylistSearch(props) {
                     let id = data.playlists.items[i].id
                     let name = data.playlists.items[i].name
                     let owner = data.playlists.items[i].owner.display_name
-                    handleAddQueryResult([id, name, owner])
+                    let url = data.playlists.items[i].tracks.href
+                    handleAddQueryResult([id, name, owner, url])
                 }
             })
     }

@@ -18,7 +18,8 @@ function UserPlaylists(props) {
                         let id = data.items[i].id
                         let name = data.items[i].name
                         let owner = data.items[i].owner.display_name
-                        handleAddPlaylist([id, name, owner])
+                        let url = data.items[i].tracks.href
+                        handleAddPlaylist([id, name, owner, url])
                     }
                 })
 		}

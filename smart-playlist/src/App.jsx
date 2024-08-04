@@ -123,9 +123,7 @@ function App() {
 
 			{accessToken && useSearch && <PlaylistSearch f={(data) => setCurrentPlaylist(data)} token={accessToken}/>}
 
-			{currentPlaylist && <CurrentPlaylist title={currentPlaylist[0]}/>}
-			{currentPlaylist && <CurrentPlaylist title={currentPlaylist[1]}/>}
-			{currentPlaylist && <CurrentPlaylist title={currentPlaylist[2]}/>}
+			{currentPlaylist && <CurrentPlaylist token={accessToken} url={currentPlaylist[3]} title={currentPlaylist[1]} active={currentPlaylist}/>}
 
 			<Footer />
 		</Container>
