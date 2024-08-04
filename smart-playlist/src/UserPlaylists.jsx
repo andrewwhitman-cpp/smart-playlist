@@ -7,7 +7,6 @@ function UserPlaylists(props) {
 
     const [playlists, setPlaylists] = useState([])
 
-
     useEffect(() => {
         const limit = 50
         handleClearPlaylists()
@@ -16,10 +15,10 @@ function UserPlaylists(props) {
                 .then(data => {
                     console.log(data)
                     for (let i = 0; i < data.items.length; i++) {
-                        let playlistName = data.items[i].name
-                        // let owner = data.items[i].owner.display_name
-                        // handleAddPlaylist(playlistName)
-                        handleAddPlaylist(playlistName)
+                        let id = data.items[i].id
+                        let name = data.items[i].name
+                        let owner = data.items[i].owner.display_name
+                        handleAddPlaylist([id, name, owner])
                     }
                 })
 		}
@@ -45,12 +44,12 @@ function UserPlaylists(props) {
 
 	return (
         <Table>
-            {playlists.map((playlist, index) => 
+            {playlists.map((item, index) => 
                 <TableBody 
                     key={index} 
-                    onClick={() => props.f(playlist)}
+                    onClick={() => props.f(item)}
                 >
-                    {playlist}
+                    {item[1]}
                 </TableBody>
             )}
         </Table>

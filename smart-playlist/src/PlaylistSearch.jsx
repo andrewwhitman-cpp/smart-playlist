@@ -17,9 +17,10 @@ function PlaylistSearch(props) {
             .then(data => {
                 console.log(data)
                 for (let i = 0; i < limit; i++) {
-                    let playlistName = data.playlists.items[i].name
-                    let playlistOwner = data.playlists.items[i].owner.display_name
-                    handleAddQueryResult(playlistName + " by " + playlistOwner)
+                    let id = data.playlists.items[i].id
+                    let name = data.playlists.items[i].name
+                    let owner = data.playlists.items[i].owner.display_name
+                    handleAddQueryResult([id, name, owner])
                 }
             })
     }
@@ -53,12 +54,12 @@ function PlaylistSearch(props) {
             </div>
 
             <Table>
-                {queryResults.map((playlist, index) => 
+                {queryResults.map((item, index) => 
                     <TableBody 
                         key={index} 
-                        onClick={() => props.f(playlist)}
+                        onClick={() => props.f(item)}
                     >
-                        {playlist}
+                        {item[1]}
                     </TableBody>
                 )}
             </Table>

@@ -16,7 +16,7 @@ function App() {
 	const [profileName, setProfileName] = useState('')
 	const [profileID, setProfileID] = useState('')
 	const [useSearch, setUseSearch] = useState(false)
-	const [currentPlaylistName, setCurrentPlaylistName] = useState('')
+	const [currentPlaylist, setCurrentPlaylist] = useState('')
 
 	useEffect(() => {
 		const userLogin = async () => {
@@ -39,7 +39,7 @@ function App() {
 	}, [])
 
 	useEffect(() => {
-		setCurrentPlaylistName('')
+		setCurrentPlaylist('')
 	}, [useSearch])
 	
 	async function redirectToAuthCodeFlow(clientId) {
@@ -119,11 +119,13 @@ function App() {
 
 			<hr></hr>
 
-			{accessToken && !useSearch && <UserPlaylists f={(data) => setCurrentPlaylistName(data)} token={accessToken} userID={profileID} toggle={useSearch}/>}
+			{accessToken && !useSearch && <UserPlaylists f={(data) => setCurrentPlaylist(data)} token={accessToken} userID={profileID} toggle={useSearch}/>}
 
-			{accessToken && useSearch && <PlaylistSearch f={(data) => setCurrentPlaylistName(data)} token={accessToken}/>}
+			{accessToken && useSearch && <PlaylistSearch f={(data) => setCurrentPlaylist(data)} token={accessToken}/>}
 
-			{currentPlaylistName && <CurrentPlaylist title={currentPlaylistName}/>}
+			{currentPlaylist && <CurrentPlaylist title={currentPlaylist[0]}/>}
+			{currentPlaylist && <CurrentPlaylist title={currentPlaylist[1]}/>}
+			{currentPlaylist && <CurrentPlaylist title={currentPlaylist[2]}/>}
 
 			<Footer />
 		</Container>
