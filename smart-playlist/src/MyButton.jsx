@@ -7,14 +7,14 @@ function MyButton(props) {
                 p: 1,
                 m: 1,
                 border: 1,
-                borderColor: "secondary.main",
-                bgcolor: "primary.main",
-                color: "secondary.main",
+                borderColor: props.active ? "primary.main" : "text.primary",
+                bgcolor: props.active ? "primary.main" : "background.default",
+                color: props.active ? "background.default" : "text.primary",
                 width: props.width,
                 ":hover": {
-                    borderColor: "tertiary.main",
-                    bgcolor: "tertiary.main",
-                    color: "primary.main"
+                    borderColor: "primary.main",
+                    bgcolor: "primary.main",
+                    color: "background.default"
                 }
             }}
             onClick={props.f}

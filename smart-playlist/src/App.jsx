@@ -109,21 +109,49 @@ function App() {
 	return (
 		<Container sx={{ 
 			textAlign: "center",
-			fontFamily: "arial" }}
+			fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif' }}
 		>
 			{profileName && <Header user={profileName}/>}
 			
-			<MyButton text="My Playlists" width="30vw" f={() => setUseSearch(false)}/>
+			<MyButton 
+				text="My Playlists" 
+				width="30vw" 
+				active={!useSearch} 
+				f={() => setUseSearch(false)}
+			/>
 
-			<MyButton text="Search for Playlist" width="30vw" f={() => setUseSearch(true)}/>
+			<MyButton 
+				text="Search for Playlist" 
+				width="30vw" 
+				active={useSearch} 
+				f={() => setUseSearch(true)}
+			/>
 
 			<hr></hr>
 
-			{accessToken && !useSearch && <UserPlaylists f={(data) => setCurrentPlaylist(data)} token={accessToken} userID={profileID} toggle={useSearch}/>}
+			{accessToken && 
+			!useSearch && 
+			<UserPlaylists 
+				token={accessToken} 
+				userID={profileID} 
+				toggle={useSearch}
+				f={(data) => setCurrentPlaylist(data)} 
+			/>}
 
-			{accessToken && useSearch && <PlaylistSearch f={(data) => setCurrentPlaylist(data)} token={accessToken}/>}
+			{accessToken && 
+			useSearch && 
+			<PlaylistSearch 
+				token={accessToken}
+				f={(data) => setCurrentPlaylist(data)} 
+			/>}
 
-			{currentPlaylist && <CurrentPlaylist active={currentPlaylist} token={accessToken} title={currentPlaylist[1]} url={currentPlaylist[3]}/>}
+			{currentPlaylist && 
+			<CurrentPlaylist 
+				active={currentPlaylist} 
+				token={accessToken} 
+				title={currentPlaylist[1]} 
+				url={currentPlaylist[3]}
+			/>}
 
 			<Footer />
 		</Container>
