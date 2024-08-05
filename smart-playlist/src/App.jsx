@@ -1,11 +1,11 @@
 import { Button, Container, Typography } from "@mui/material"
 import Header from './Header.jsx'
 import Footer from './Footer.jsx'
-import SearchToggle from './SearchToggle.jsx'
 import UserPlaylists from './UserPlaylists.jsx'
 import PlaylistSearch from './PlaylistSearch.jsx'
 import { useState, useEffect, createContext } from 'react'
 import CurrentPlaylist from './CurrentPlaylist.jsx'
+import MyButton from "./MyButton.jsx"
 
 function App() {
 	const clientId = '9e2d4dd8eba243c9a01de32cb6b428c6'
@@ -113,9 +113,9 @@ function App() {
 		>
 			{profileName && <Header user={profileName}/>}
 			
-			<SearchToggle f={() => setUseSearch(false)} text="My Playlists"/>
+			<MyButton text="My Playlists" f={() => setUseSearch(false)}/>
 
-			<SearchToggle f={() => setUseSearch(true)} text="Search for Playlist"/>
+			<MyButton text="Search for Playlist" f={() => setUseSearch(true)}/>
 
 			<hr></hr>
 
