@@ -9,7 +9,7 @@ function PlaylistSearch(props) {
     const changeQuery = event => {
         setQuery(event.target.value)
     }
-    
+
     function submitQuery() {
         let limit = 15
         handleClearQueryResult()
@@ -25,7 +25,7 @@ function PlaylistSearch(props) {
                 }
             })
     }
-    
+
     function handleAddQueryResult(item) {
         setQueryResults(l => [...l, item])
     }
@@ -39,7 +39,7 @@ function PlaylistSearch(props) {
         const result = await fetch(urlEncodedQuery, {
             method: 'GET', headers: { Authorization: `Bearer ${token}` }
         })
-    
+
         return await result.json()
     }
 
@@ -55,9 +55,9 @@ function PlaylistSearch(props) {
             </div>
 
             <Table>
-                {queryResults.map((item, index) => 
-                    <TableBody 
-                        key={index} 
+                {queryResults.map((item, index) =>
+                    <TableBody
+                        key={index}
                         onClick={() => props.f(item)}
                         sx={{
                             cursor: "pointer"

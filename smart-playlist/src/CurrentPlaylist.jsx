@@ -36,99 +36,99 @@ function CurrentPlaylist(props) {
         const result = await fetch(url, {
             method: 'GET', headers: { Authorization: `Bearer ${token}` }
         })
-    
+
         return await result.json()
     }
 
-	return (
+    return (
         <>
-        <hr></hr>
-        <MyButton text="Reorder" width="20vw" f={() => setNewOrder(true)}></MyButton>
+            <hr></hr>
+            <MyButton text="Reorder" width="20vw" f={() => setNewOrder(true)}></MyButton>
 
-        <Typography
-            variant="h5"
-            sx={{
-                p: 1,
-                m: 1,
-                fontWeight: "bold"
-            }}
-        >
-            {props.title}
-        </Typography>
+            <Typography
+                variant="h5"
+                sx={{
+                    p: 1,
+                    m: 1,
+                    fontWeight: "bold"
+                }}
+            >
+                {props.title}
+            </Typography>
 
-        <Box 
-            display="flex" 
-            alignItems="center"
-            flex={1}
-        >
-            <Box 
-                p={2}
+            <Box
+                display="flex"
+                alignItems="center"
                 flex={1}
             >
-                <Typography
-                    variant="h6"
-                    sx={{
-                        fontWeight: "bold",
-                        textDecoration: "underline"
-                    }}
+                <Box
+                    p={2}
+                    flex={1}
                 >
-                    Original Order
-                </Typography>
+                    <Typography
+                        variant="h6"
+                        sx={{
+                            fontWeight: "bold",
+                            textDecoration: "underline"
+                        }}
+                    >
+                        Original Order
+                    </Typography>
 
-                <List>
-                    {songs.map((item, index) => 
-                        <ListItem key={index} sx={{ textAlign: "center" }}>
-                            <Typography variant="body1" component="span" sx={{ marginRight: 1 }}>
-                                {index + 1}.
-                            </Typography>
-                            <ListItemText>
-                                {item[0] + " by " + item[1]}
-                            </ListItemText>
-                        </ListItem>
-                    )}
-                </List>
+                    <List>
+                        {songs.map((item, index) =>
+                            <ListItem key={index} sx={{ textAlign: "center" }}>
+                                <Typography variant="body1" component="span" sx={{ marginRight: 1 }}>
+                                    {index + 1}.
+                                </Typography>
+                                <ListItemText>
+                                    {item[0] + " by " + item[1]}
+                                </ListItemText>
+                            </ListItem>
+                        )}
+                    </List>
+                </Box>
+
+                {newOrder &&
+                    <Divider orientation="vertical" flexItem />
+                }
+
+                {newOrder &&
+                    <Box
+                        p={2}
+                        flex={1}
+                    >
+                        <Typography
+                            variant="h6"
+                            sx={{
+                                fontWeight: "bold",
+                                textDecoration: "underline"
+                            }}
+                        >
+                            New Order
+                        </Typography>
+
+                        <List>
+                            {songs.map((item, index) =>
+                                <ListItem key={index} sx={{ textAlign: "center" }}>
+                                    <Typography variant="body1" component="span" sx={{ marginRight: 1 }}>
+                                        {index + 1}.
+                                    </Typography>
+                                    <ListItemText>
+                                        {item[0] + " by " + item[1]}
+                                    </ListItemText>
+                                </ListItem>
+                            )}
+                        </List>
+                    </Box>
+                }
             </Box>
 
             {newOrder &&
-            <Divider orientation="vertical" flexItem />
+                <MyButton text="Save New Order" width="25vw"></MyButton>
             }
-
-            {newOrder &&
-            <Box 
-                p={2}
-                flex={1}
-            >
-                <Typography
-                    variant="h6"
-                    sx={{
-                        fontWeight: "bold",
-                        textDecoration: "underline"
-                    }}
-                >
-                    New Order
-                </Typography>
-
-                <List>
-                    {songs.map((item, index) => 
-                        <ListItem key={index} sx={{ textAlign: "center" }}>
-                            <Typography variant="body1" component="span" sx={{ marginRight: 1 }}>
-                                {index + 1}.
-                            </Typography>
-                            <ListItemText>
-                                {item[0] + " by " + item[1]}
-                            </ListItemText>
-                        </ListItem>
-                    )}
-                </List>
-            </Box>
-            }
-        </Box>
-
-        {newOrder &&
-        <MyButton text="Save New Order" width="25vw"></MyButton>
-        }
         </>
-	)
+    )
 }
 
 export default CurrentPlaylist

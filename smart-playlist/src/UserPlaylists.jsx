@@ -10,7 +10,7 @@ function UserPlaylists(props) {
     useEffect(() => {
         const limit = 50
         handleClearPlaylists()
-		const loadUserPlaylists = async () => {
+        const loadUserPlaylists = async () => {
             fetchUserPlaylists(token, limit)
                 .then(data => {
                     console.log(data)
@@ -22,9 +22,9 @@ function UserPlaylists(props) {
                         handleAddPlaylist([id, name, owner, url])
                     }
                 })
-		}
-		loadUserPlaylists()
-	}, [props.toggle])
+        }
+        loadUserPlaylists()
+    }, [props.toggle])
 
     async function fetchUserPlaylists(token, limit) {
         // let query = 'https://api.spotify.com/v1/users/' + userID + '/playlists?limit=' + limit
@@ -32,7 +32,7 @@ function UserPlaylists(props) {
         const result = await fetch(query, {
             method: 'GET', headers: { Authorization: `Bearer ${token}` }
         })
-    
+
         return await result.json()
     }
 
@@ -44,11 +44,11 @@ function UserPlaylists(props) {
         setPlaylists([])
     }
 
-	return (
+    return (
         <Table>
-            {playlists.map((item, index) => 
-                <TableBody 
-                    key={index} 
+            {playlists.map((item, index) =>
+                <TableBody
+                    key={index}
                     onClick={() => props.f(item)}
                     sx={{
                         cursor: "pointer"
@@ -58,7 +58,7 @@ function UserPlaylists(props) {
                 </TableBody>
             )}
         </Table>
-	)
+    )
 }
 
 export default UserPlaylists

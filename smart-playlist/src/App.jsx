@@ -41,13 +41,13 @@ function App() {
 	useEffect(() => {
 		setCurrentPlaylist('')
 	}, [useSearch])
-	
+
 	async function redirectToAuthCodeFlow(clientId) {
 		const verifier = generateCodeVerifier(128)
 		const challenge = await generateCodeChallenge(verifier)
-	
+
 		localStorage.setItem('verifier', verifier)
-	
+
 		const params = new URLSearchParams()
 		params.append('client_id', clientId)
 		params.append('response_type', 'code')
@@ -55,14 +55,14 @@ function App() {
 		params.append('scope', 'user-read-private user-read-email playlist-modify-public playlist-modify-private')
 		params.append('code_challenge_method', 'S256')
 		params.append('code_challenge', challenge)
-	
+
 		document.location = `https://accounts.spotify.com/authorize?${params.toString()}`
 	}
 
 	function generateCodeVerifier(length) {
 		let text = ''
 		let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-	
+
 		for (let i = 0; i < length; i++) {
 			text += possible.charAt(Math.floor(Math.random() * possible.length))
 		}
@@ -80,20 +80,20 @@ function App() {
 
 	async function getAccessToken(clientId, code) {
 		const verifier = localStorage.getItem('verifier')
-	
+
 		const params = new URLSearchParams()
 		params.append('client_id', clientId)
 		params.append('grant_type', 'authorization_code')
 		params.append('code', code)
 		params.append('redirect_uri', 'http://localhost:5173/callback')
 		params.append('code_verifier', verifier)
-	
+
 		const result = await fetch('https://accounts.spotify.com/api/token', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 			body: params
 		})
-	
+
 		const { access_token } = await result.json()
 		return access_token
 	}
@@ -107,51 +107,52 @@ function App() {
 	}
 
 	return (
-		<Container sx={{ 
+		<Container sx={{
 			textAlign: "center",
-			fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif' }}
+			fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'
+		}}
 		>
-			{profileName && <Header user={profileName}/>}
-			
-			<MyButton 
-				text="My Playlists" 
-				width="30vw" 
-				active={!useSearch} 
+			{profileName && <Header user={profileName} />}
+
+			<MyButton
+				text="My Playlists"
+				width="30vw"
+				active={!useSearch}
 				f={() => setUseSearch(false)}
 			/>
 
-			<MyButton 
-				text="Search for Playlist" 
-				width="30vw" 
-				active={useSearch} 
+			<MyButton
+				text="Search for Playlist"
+				width="30vw"
+				active={useSearch}
 				f={() => setUseSearch(true)}
 			/>
 
 			<hr></hr>
 
-			{accessToken && 
-			!useSearch && 
-			<UserPlaylists 
-				token={accessToken} 
-				userID={profileID} 
-				toggle={useSearch}
-				f={(data) => setCurrentPlaylist(data)} 
-			/>}
+			{accessToken &&
+				!useSearch &&
+				<UserPlaylists
+					token={accessToken}
+					userID={profileID}
+					toggle={useSearch}
+					f={(data) => setCurrentPlaylist(data)}
+				/>}
 
-			{accessToken && 
-			useSearch && 
-			<PlaylistSearch 
-				token={accessToken}
-				f={(data) => setCurrentPlaylist(data)} 
-			/>}
+			{accessToken &&
+				useSearch &&
+				<PlaylistSearch
+					token={accessToken}
+					f={(data) => setCurrentPlaylist(data)}
+				/>}
 
-			{currentPlaylist && 
-			<CurrentPlaylist 
-				active={currentPlaylist} 
-				token={accessToken} 
-				title={currentPlaylist[1]} 
-				url={currentPlaylist[3]}
-			/>}
+			{currentPlaylist &&
+				<CurrentPlaylist
+					active={currentPlaylist}
+					token={accessToken}
+					title={currentPlaylist[1]}
+					url={currentPlaylist[3]}
+				/>}
 
 			<Footer />
 		</Container>
