@@ -44,7 +44,7 @@ function PlaylistSearch(props) {
     }
 
     return (
-        <div>
+        <>
             <Typography>
                 Search for a playlist to order its songs by similarity.
             </Typography>
@@ -63,11 +63,11 @@ function PlaylistSearch(props) {
                             cursor: "pointer"
                         }}
                     >
-                        {item[1]}
+                        {item[1] + " by " + item[2]}
                     </TableBody>
                 )}
             </Table>
-        </div>
+        </>
     )
 }
 
