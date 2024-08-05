@@ -27,7 +27,8 @@ function UserPlaylists(props) {
 	}, [props.toggle])
 
     async function fetchUserPlaylists(token, limit) {
-        let query = 'https://api.spotify.com/v1/users/' + userID + '/playlists?limit=' + limit
+        // let query = 'https://api.spotify.com/v1/users/' + userID + '/playlists?limit=' + limit
+        let query = 'https://api.spotify.com/v1/me/playlists?limit=' + limit
         const result = await fetch(query, {
             method: 'GET', headers: { Authorization: `Bearer ${token}` }
         })
