@@ -14,7 +14,9 @@ const theme = createTheme({
       main: "#000000"
     },
     tertiary: {
-      main: "#20b2aa"
+      main: "#20b2aa" // light sea green
+      // main: "#CD5C5C" // indian red
+      // main: "#9966CC" // amethyst
     },
   },
   typography: {
