@@ -8,22 +8,27 @@ import { createTheme } from '@mui/material'
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#ffffff",
+      main: '#20B2AA', // LightSeaGreen
     },
     secondary: {
-      main: "#000000"
+      main: '#FF6F61', // Soft Coral
     },
-    tertiary: {
-      main: "#20b2aa" // light sea green
-      // main: "#CD5C5C" // indian red
-      // main: "#9966CC" // amethyst
+    background: {
+      default: '#F5F5F5', // Cool White
+    },
+    text: {
+      primary: '#333333', // Charcoal Gray
     },
   },
   typography: {
-    // h1: {
-    //   fontSize: "3rem",
-    //   fontWeight: 600,
-    // },
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    h1: {
+      fontWeight: 700,
+    },
+    h2: {
+      fontWeight: 600,
+    },
+    // Customize other typography styles here
   },
 })
 
