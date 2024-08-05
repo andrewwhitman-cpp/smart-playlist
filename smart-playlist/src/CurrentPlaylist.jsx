@@ -43,7 +43,7 @@ function CurrentPlaylist(props) {
 	return (
         <>
         <hr></hr>
-        <MyButton text="Reorder" f={() => setNewOrder(true)}></MyButton>
+        <MyButton text="Reorder" width="20vw" f={() => setNewOrder(true)}></MyButton>
 
         <Typography
             variant="h5"
@@ -125,7 +125,7 @@ function CurrentPlaylist(props) {
         </Box>
 
         {newOrder &&
-        <MyButton text="Save New Order"></MyButton>
+        <MyButton text="Save New Order" width="25vw"></MyButton>
         }
         </>
 	)

@@ -113,9 +113,9 @@ function App() {
 		>
 			{profileName && <Header user={profileName}/>}
 			
-			<MyButton text="My Playlists" f={() => setUseSearch(false)}/>
+			<MyButton text="My Playlists" width="30vw" f={() => setUseSearch(false)}/>
 
-			<MyButton text="Search for Playlist" f={() => setUseSearch(true)}/>
+			<MyButton text="Search for Playlist" width="30vw" f={() => setUseSearch(true)}/>
 
 			<hr></hr>
 

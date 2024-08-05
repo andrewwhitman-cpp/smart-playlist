@@ -10,7 +10,7 @@ function MyButton(props) {
                 borderColor: "secondary.main",
                 bgcolor: "primary.main",
                 color: "secondary.main",
-                width: "20vw",
+                width: props.width,
                 ":hover": {
                     borderColor: "tertiary.main",
                     bgcolor: "tertiary.main",
