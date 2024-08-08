@@ -12,7 +12,7 @@ function Header(props) {
 			</Typography>
 			<Typography
 				variant="h5"
-				color={"tertiary.main"}
+				color={"primary.main"}
 			>
 				Logged in as {props.user ? props.user : "Nobody"}
 			</Typography>
