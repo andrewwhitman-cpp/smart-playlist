@@ -150,6 +150,8 @@ function App() {
 				<CurrentPlaylist
 					active={currentPlaylist}
 					token={accessToken}
+					userID={profileID}
+					playlistID={currentPlaylist[0]}
 					title={currentPlaylist[1]}
 					url={currentPlaylist[3]}
 				/>}
