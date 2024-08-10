@@ -1,19 +1,20 @@
 import { Button } from "@mui/material"
 
 function MyButton(props) {
+    const c = props.color ? props.color : "primary.main"
     return (
         <Button
             sx={{
                 p: 1,
                 m: 1,
                 border: 1,
-                borderColor: props.active ? "primary.main" : "text.primary",
-                bgcolor: props.active ? "primary.main" : "background.default",
+                borderColor: props.active ? c : "text.primary",
+                bgcolor: props.active ? c : "background.default",
                 color: props.active ? "background.default" : "text.primary",
                 width: props.width,
                 ":hover": {
-                    borderColor: "primary.main",
-                    bgcolor: "primary.main",
+                    borderColor: c,
+                    bgcolor: c,
                     color: "background.default"
                 }
             }}

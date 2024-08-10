@@ -8,16 +8,22 @@ import { createTheme } from '@mui/material'
 const theme = createTheme({
 	palette: {
 		primary: {
-			main: '#20B2AA', // LightSeaGreen
+			// main: '#20B2AA', // LightSeaGreen
+			main: '#3AB09E'
 		},
 		secondary: {
-			main: '#FF6F61', // Soft Coral
+			main: '#ACE1AF',
+		},
+		tertiary: {
+			main: '#F7E7CE',
 		},
 		background: {
-			default: '#F5F5F5', // Cool White
+			// default: '#F5F5F5', // Cool White
+			default: '#F2F3F4', // Cool White
 		},
 		text: {
-			primary: '#333333', // Charcoal Gray
+			// primary: '#333333', // Charcoal Gray
+			primary: '#414A4C', // Charcoal Gray
 		},
 	},
 	typography: {
