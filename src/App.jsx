@@ -51,8 +51,8 @@ function App() {
 		const params = new URLSearchParams()
 		params.append('client_id', clientId)
 		params.append('response_type', 'code')
-		if (document.url.includes('localhost')) {
-			params.append('redirect_uri', 'http://localhost:5173/callback')
+		if (window.location.href.includes('localhost')) {
+			params.append('redirect_uri', 'http://localhost:5173/smart-playlist/callback')
 		} else {
 			params.append('redirect_uri', 'https://andrewwhitman-cpp.github.io/smart-playlist/callback')
 		}
@@ -89,8 +89,8 @@ function App() {
 		params.append('client_id', clientId)
 		params.append('grant_type', 'authorization_code')
 		params.append('code', code)
-		if (document.url.includes('localhost')) {
-			params.append('redirect_uri', 'http://localhost:5173/callback')
+		if (window.location.href.includes('localhost')) {
+			params.append('redirect_uri', 'http://localhost:5173/smart-playlist/callback')
 		} else {
 			params.append('redirect_uri', 'https://andrewwhitman-cpp.github.io/smart-playlist/callback')
 		}
