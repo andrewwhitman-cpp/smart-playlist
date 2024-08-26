@@ -51,10 +51,12 @@ function App() {
 		const params = new URLSearchParams()
 		params.append('client_id', clientId)
 		params.append('response_type', 'code')
-		if (window.location.href.includes('localhost')) {
-			params.append('redirect_uri', 'http://localhost:5173/smart-playlist/callback')
+		if (window.location.href.includes('localhost:5173')) {
+			params.append('redirect_uri', 'http://localhost:5173/smart-playlist/callback') // dev
+		} else if (window.location.href.includes('localhost:4173')) {
+			params.append('redirect_uri', 'http://localhost:4173/smart-playlist/callback') // preview
 		} else {
-			params.append('redirect_uri', 'https://andrewwhitman-cpp.github.io/smart-playlist/callback')
+			params.append('redirect_uri', 'https://andrewwhitman-cpp.github.io/smart-playlist/callback') // prod
 		}
 		params.append('scope', 'user-read-private user-read-email playlist-modify-public playlist-modify-private')
 		params.append('code_challenge_method', 'S256')
@@ -89,10 +91,12 @@ function App() {
 		params.append('client_id', clientId)
 		params.append('grant_type', 'authorization_code')
 		params.append('code', code)
-		if (window.location.href.includes('localhost')) {
-			params.append('redirect_uri', 'http://localhost:5173/smart-playlist/callback')
+		if (window.location.href.includes('localhost:5173')) {
+			params.append('redirect_uri', 'http://localhost:5173/smart-playlist/callback') // dev
+		} else if (window.location.href.includes('localhost:4173')) {
+			params.append('redirect_uri', 'http://localhost:4173/smart-playlist/callback') // preview
 		} else {
-			params.append('redirect_uri', 'https://andrewwhitman-cpp.github.io/smart-playlist/callback')
+			params.append('redirect_uri', 'https://andrewwhitman-cpp.github.io/smart-playlist/callback') // prod
 		}
 		params.append('code_verifier', verifier)
 
