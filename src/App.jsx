@@ -53,6 +53,8 @@ function App() {
 		params.append('response_type', 'code')
 		if (window.location.href.includes('localhost:5173')) {
 			params.append('redirect_uri', 'http://localhost:5173/smart-playlist/callback') // dev
+		} else if (window.location.href.includes('localhost:5174')) {
+			params.append('redirect_uri', 'http://localhost:5174/smart-playlist/callback') // preview
 		} else if (window.location.href.includes('localhost:4173')) {
 			params.append('redirect_uri', 'http://localhost:4173/smart-playlist/callback') // preview
 		} else {
@@ -92,6 +94,8 @@ function App() {
 		params.append('code', code)
 		if (window.location.href.includes('localhost:5173')) {
 			params.append('redirect_uri', 'http://localhost:5173/smart-playlist/callback') // dev
+		} else if (window.location.href.includes('localhost:5174')) {
+			params.append('redirect_uri', 'http://localhost:5174/smart-playlist/callback') // preview
 		} else if (window.location.href.includes('localhost:4173')) {
 			params.append('redirect_uri', 'http://localhost:4173/smart-playlist/callback') // preview
 		} else {
