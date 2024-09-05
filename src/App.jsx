@@ -56,12 +56,11 @@ function App() {
 		} else if (window.location.href.includes('localhost:4173')) {
 			params.append('redirect_uri', 'http://localhost:4173/smart-playlist/callback') // preview
 		} else {
-			params.append('redirect_uri', 'https://andrewwhitman-cpp.github.io/smart-playlist/callback') // prod
+			params.append('redirect_uri', 'https://andrewwhitman-cpp.github.io/smart-playlist') // prod
 		}
 		params.append('scope', 'user-read-private user-read-email playlist-modify-public playlist-modify-private')
 		params.append('code_challenge_method', 'S256')
 		params.append('code_challenge', challenge)
-
 		document.location = `https://accounts.spotify.com/authorize?${params.toString()}`
 	}
 
@@ -96,7 +95,7 @@ function App() {
 		} else if (window.location.href.includes('localhost:4173')) {
 			params.append('redirect_uri', 'http://localhost:4173/smart-playlist/callback') // preview
 		} else {
-			params.append('redirect_uri', 'https://andrewwhitman-cpp.github.io/smart-playlist/callback') // prod
+			params.append('redirect_uri', 'https://andrewwhitman-cpp.github.io/smart-playlist') // prod
 		}
 		params.append('code_verifier', verifier)
 
