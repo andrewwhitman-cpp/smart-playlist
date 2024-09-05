@@ -171,7 +171,8 @@ function App() {
 					url={currentPlaylist[3]}
 				/>}
 
-			<Footer />
+			<hr />
+			{/* <Footer /> */}
 		</Container>
 	);
 }
