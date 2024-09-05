@@ -53,15 +53,16 @@ function App() {
 		params.append('response_type', 'code')
 		if (window.location.href.includes('localhost:5173')) {
 			params.append('redirect_uri', 'http://localhost:5173/smart-playlist/callback') // dev
+		} else if (window.location.href.includes('localhost:5174')) {
+			params.append('redirect_uri', 'http://localhost:5174/smart-playlist/callback') // preview
 		} else if (window.location.href.includes('localhost:4173')) {
 			params.append('redirect_uri', 'http://localhost:4173/smart-playlist/callback') // preview
 		} else {
-			params.append('redirect_uri', 'https://andrewwhitman-cpp.github.io/smart-playlist/callback') // prod
+			params.append('redirect_uri', 'https://andrewwhitman-cpp.github.io/smart-playlist') // prod
 		}
 		params.append('scope', 'user-read-private user-read-email playlist-modify-public playlist-modify-private')
 		params.append('code_challenge_method', 'S256')
 		params.append('code_challenge', challenge)
-
 		document.location = `https://accounts.spotify.com/authorize?${params.toString()}`
 	}
 
@@ -93,10 +94,12 @@ function App() {
 		params.append('code', code)
 		if (window.location.href.includes('localhost:5173')) {
 			params.append('redirect_uri', 'http://localhost:5173/smart-playlist/callback') // dev
+		} else if (window.location.href.includes('localhost:5174')) {
+			params.append('redirect_uri', 'http://localhost:5174/smart-playlist/callback') // preview
 		} else if (window.location.href.includes('localhost:4173')) {
 			params.append('redirect_uri', 'http://localhost:4173/smart-playlist/callback') // preview
 		} else {
-			params.append('redirect_uri', 'https://andrewwhitman-cpp.github.io/smart-playlist/callback') // prod
+			params.append('redirect_uri', 'https://andrewwhitman-cpp.github.io/smart-playlist') // prod
 		}
 		params.append('code_verifier', verifier)
 
