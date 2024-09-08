@@ -70,7 +70,7 @@ function CurrentPlaylist(props) {
     function handleClearSortedIndices() {
         setSortedIndices([])
     }
-    
+
     async function fetchPlaylistTracks(token, url) {
         const result = await fetch(url, {
             method: 'GET', headers: { Authorization: `Bearer ${token}` }
@@ -85,17 +85,17 @@ function CurrentPlaylist(props) {
             query += songIDs[i]
             if (i != songIDs.length - 1) query += ','
         }
-    
+
         const result = await fetch(query, {
             method: 'GET', headers: { Authorization: `Bearer ${token}` }
         })
-    
+
         return await result.json()
     }
 
     function similarityMatrix(playlistAudioFeatures) {
         const n = playlistAudioFeatures.length
-    
+
         let mat = []
         for (let i = 0; i < n; i++) {
             let row = []
@@ -105,13 +105,13 @@ function CurrentPlaylist(props) {
             }
             mat.push(row)
         }
-    
+
         return mat
     }
 
     function getSimilarityScore(audioFeatures1, audioFeatures2) {
         let score = 0
-    
+
         // key change
         let keyDiff = Math.abs(audioFeatures1['key'] - audioFeatures2['key'])
         if (keyDiff == 0) {
@@ -122,7 +122,7 @@ function CurrentPlaylist(props) {
         } else {
             score += 2
         }
-        
+
         // score += Math.abs(keyDiff) / 2
         // score += Math.abs(audioFeatures1['acousticness'] - audioFeatures2['acousticness']) * 2
         // score += Math.abs(audioFeatures1['danceability'] - audioFeatures2['danceability'])
@@ -133,29 +133,29 @@ function CurrentPlaylist(props) {
         // score += Math.abs(audioFeatures1['valence'] - audioFeatures2['valence'])
 
         console.log(audioFeatures1)
-    
-        return {score}
+
+        return { score }
     }
 
     function sortPlaylistBySimilarity(simMat) {
         const n = simMat.length
         let simimlaritySum = 0
         let score = 0
-    
+
         let songUsed = []
         for (let i = 0; i < n; i++) {
             songUsed.push(0)
         }
-    
+
         let i = 0
         let count = 0
         let songOrder = []
         while (true) {
             count += 1
-    
+
             let tempMinVal = 1000000
             let tempMinIndex = 0
-    
+
             for (let j = 0; j < n; j++) {
                 if (i == j) continue
                 if (!songUsed[j] && simMat[i][j] < tempMinVal) {
@@ -164,11 +164,11 @@ function CurrentPlaylist(props) {
                     simimlaritySum += simMat[i][j]
                 }
             }
-            
+
             songOrder.push(i)
             songUsed[i] = 1
             i = tempMinIndex
-    
+
             if (count == n) break
         }
         score = simimlaritySum / n
@@ -178,10 +178,10 @@ function CurrentPlaylist(props) {
 
     async function newPlaylist() {
         const method = 'POST'
-        const headers = {Authorization: `Bearer ${props.token}`, 'Content-Type': 'application/json'}
+        const headers = { Authorization: `Bearer ${props.token}`, 'Content-Type': 'application/json' }
         const newTitle = props.title + " - Smart Sorted"
         const data = `{"name": "${newTitle}", "description": "Smart sorted playlist", "public": false}`
-    
+
         const result = await fetch('https://api.spotify.com/v1/users/' + props.userID + '/playlists', {
             method: method, headers: headers, body: data
         })
@@ -193,15 +193,15 @@ function CurrentPlaylist(props) {
 
     async function populatePlaylist(id) {
         const method = 'POST'
-        const headers = {Authorization: `Bearer ${props.token}`, 'Content-Type': 'application/json'}
-        
+        const headers = { Authorization: `Bearer ${props.token}`, 'Content-Type': 'application/json' }
+
         let newPlaylistURIs = []
         for (let i = 0; i < songs.length; i++) {
             const currentURI = songURIs[sortedIndices[i]]
             newPlaylistURIs.push(currentURI)
         }
-        const data = {"uris": newPlaylistURIs, "position": 0}
-        
+        const data = { "uris": newPlaylistURIs, "position": 0 }
+
         const result = await fetch('https://api.spotify.com/v1/playlists/' + id + '/tracks?uris=' + newPlaylistURIs, {
             method: method, headers: headers, data: data
         })
@@ -212,7 +212,7 @@ function CurrentPlaylist(props) {
     async function reorder() {
         setNewOrder(true)
         const audioFeatures = await fetchMultipleAudioFeatures(props.token, songIDs)
-        
+
         // create similarity matrix
         const simMat = similarityMatrix(audioFeatures.audio_features)
 
@@ -229,11 +229,28 @@ function CurrentPlaylist(props) {
     return (
         <>
             <hr></hr>
-            <MyButton 
-                text="Reorder" 
-                width="20vw" 
+            <MyButton
+                text="Reorder"
+                width="20vw"
                 f={() => reorder()}
             />
+            <br />
+
+            {newOrder &&
+                <MyButton
+                    text="Save New Playlist"
+                    width="25vw"
+                    f={async () => {
+                        const newPL = await newPlaylist()
+                        const result = await populatePlaylist(newPL.id)
+                        if (result.snapshot_id) {
+                            alert("Success!")
+                        } else {
+                            alert("Playlist creation error")
+                        }
+                    }}
+                />
+            }
 
             <Typography
                 variant="h5"
@@ -306,22 +323,6 @@ function CurrentPlaylist(props) {
                     </Box>
                 }
             </Box>
-
-            {newOrder &&
-                <MyButton 
-                    text="Save New Playlist"
-                    width="25vw"
-                    f={async () => {
-                        const newPL = await newPlaylist()
-                        const result = await populatePlaylist(newPL.id)
-                        if (result.snapshot_id) {
-                            alert("Success!")
-                        } else {
-                            alert("Playlist creation error")
-                        }
-                    }}
-                />
-            }
         </>
     )
 }
