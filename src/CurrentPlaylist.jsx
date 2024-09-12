@@ -209,7 +209,7 @@ function CurrentPlaylist(props) {
         return await result.json()
     }
 
-    async function reorder() {
+    async function reorderSmart() {
         setNewOrder(true)
         const audioFeatures = await fetchMultipleAudioFeatures(props.token, songIDs)
 
@@ -232,7 +232,7 @@ function CurrentPlaylist(props) {
             <MyButton
                 text="Reorder"
                 width="20vw"
-                f={() => reorder()}
+                f={() => reorderSmart()}
             />
             <br />
 
