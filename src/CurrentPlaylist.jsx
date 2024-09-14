@@ -176,6 +176,10 @@ function CurrentPlaylist(props) {
         return songOrder
     }
 
+    function sortPlaylistBySongAlpha() {
+        return
+    }
+
     async function newPlaylist() {
         const method = 'POST'
         const headers = { Authorization: `Bearer ${props.token}`, 'Content-Type': 'application/json' }
@@ -209,20 +213,28 @@ function CurrentPlaylist(props) {
         return await result.json()
     }
 
-    async function reorderSmart() {
+    async function reorder(type) {
         setNewOrder(true)
-        const audioFeatures = await fetchMultipleAudioFeatures(props.token, songIDs)
+        if (type === "smart") {
+            const audioFeatures = await fetchMultipleAudioFeatures(props.token, songIDs)
 
-        // create similarity matrix
-        const simMat = similarityMatrix(audioFeatures.audio_features)
+            // create similarity matrix
+            const simMat = similarityMatrix(audioFeatures.audio_features)
 
-        // sort playlist for high similarity with adjacent songs
-        const sortedPlaylistIndices = sortPlaylistBySimilarity(simMat)
-        setSortedIndices(sortedPlaylistIndices)
+            // sort playlist for high similarity with adjacent songs
+            const sortedPlaylistIndices = sortPlaylistBySimilarity(simMat)
+            setSortedIndices(sortedPlaylistIndices)
 
-        // get sorted track names
-        for (let i = 0; i < sortedPlaylistIndices.length; i++) {
-            handleAddSortedSong(songs[sortedPlaylistIndices[i]])
+            // get sorted track names
+            for (let i = 0; i < sortedPlaylistIndices.length; i++) {
+                handleAddSortedSong(songs[sortedPlaylistIndices[i]])
+            }
+        } else if (type === "songAlpha") {
+            //
+        } else if (type === "artistAlpha") {
+            //
+        } else if (type === "songLength") {
+            //
         }
     }
 
@@ -232,7 +244,7 @@ function CurrentPlaylist(props) {
             <MyButton
                 text="Reorder"
                 width="20vw"
-                f={() => reorderSmart()}
+                f={() => reorder("smart")}
             />
             <br />
 
