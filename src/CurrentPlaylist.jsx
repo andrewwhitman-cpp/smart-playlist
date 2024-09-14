@@ -252,6 +252,7 @@ function CurrentPlaylist(props) {
             console.log("smart sorting...")
 
             const audioFeatures = await fetchMultipleAudioFeatures(props.token, songIDs)
+            console.log(audioFeatures)
 
             // create similarity matrix
             const simMat = similarityMatrix(audioFeatures.audio_features)
