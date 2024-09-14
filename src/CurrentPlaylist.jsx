@@ -18,7 +18,6 @@ function CurrentPlaylist(props) {
         handleClearSortedIndices()
         fetchPlaylistTracks(props.token, props.url)
             .then(data => {
-                console.log(data)
                 for (let i = 0; i < data.items.length; i++) {
                     let songID = data.items[i].track.id
                     let songURI = data.items[i].track.uri
@@ -132,8 +131,6 @@ function CurrentPlaylist(props) {
         score += Math.abs(audioFeatures1['loudness'] - audioFeatures2['loudness'])
         // score += Math.abs(audioFeatures1['valence'] - audioFeatures2['valence'])
 
-        console.log(audioFeatures1)
-
         return { score }
     }
 
@@ -173,11 +170,28 @@ function CurrentPlaylist(props) {
         }
         score = simimlaritySum / n
 
+        console.log("new song index order: " + songOrder)
+
         return songOrder
     }
 
     function sortPlaylistBySongAlpha() {
-        return
+        // Create an array of indices
+        let songOrder = songs.map((_, index) => index);
+
+        // Sort the indices based on the first element of the sub-arrays (song title)
+        songOrder.sort((a, b) => {
+            const songA = songs[a][0];
+            const songB = songs[b][0];
+            
+            // Compare the song title strings
+            if (songA < songB) return -1;
+            if (songA > songB) return 1;
+            return 0;
+          });
+        console.log("new song index order: " + songOrder)
+
+        return songOrder
     }
 
     async function newPlaylist() {
@@ -216,6 +230,8 @@ function CurrentPlaylist(props) {
     async function reorder(type) {
         setNewOrder(true)
         if (type === "smart") {
+            console.log("smart sorting...")
+
             const audioFeatures = await fetchMultipleAudioFeatures(props.token, songIDs)
 
             // create similarity matrix
@@ -230,7 +246,16 @@ function CurrentPlaylist(props) {
                 handleAddSortedSong(songs[sortedPlaylistIndices[i]])
             }
         } else if (type === "songAlpha") {
-            //
+            console.log("sorting alphabetically by song title...")
+
+            // sort playlist alphabetically by song title
+            const sortedPlaylistIndices = sortPlaylistBySongAlpha()
+            setSortedIndices(sortedPlaylistIndices)
+
+            // get sorted track names
+            for (let i = 0; i < sortedPlaylistIndices.length; i++) {
+                handleAddSortedSong(songs[sortedPlaylistIndices[i]])
+            }
         } else if (type === "artistAlpha") {
             //
         } else if (type === "songLength") {
@@ -242,9 +267,15 @@ function CurrentPlaylist(props) {
         <>
             <hr></hr>
             <MyButton
-                text="Reorder"
+                text="Smart Sort"
                 width="20vw"
                 f={() => reorder("smart")}
+            />
+            <br />
+            <MyButton
+                text="Sort by Song Title"
+                width="20vw"
+                f={() => reorder("songAlpha")}
             />
             <br />
 
