@@ -194,6 +194,25 @@ function CurrentPlaylist(props) {
         return songOrder
     }
 
+    function sortPlaylistByArtistAlpha() {
+        // Create an array of indices
+        let songOrder = songs.map((_, index) => index);
+
+        // Sort the indices based on the first element of the sub-arrays (song title)
+        songOrder.sort((a, b) => {
+            const songA = songs[a][1];
+            const songB = songs[b][1];
+            
+            // Compare the song title strings
+            if (songA < songB) return -1;
+            if (songA > songB) return 1;
+            return 0;
+          });
+        console.log("new song index order: " + songOrder)
+
+        return songOrder
+    }
+
     async function newPlaylist() {
         const method = 'POST'
         const headers = { Authorization: `Bearer ${props.token}`, 'Content-Type': 'application/json' }
@@ -257,7 +276,16 @@ function CurrentPlaylist(props) {
                 handleAddSortedSong(songs[sortedPlaylistIndices[i]])
             }
         } else if (type === "artistAlpha") {
-            //
+            console.log("sorting alphabetically by artist name...")
+
+            // sort playlist alphabetically by song title
+            const sortedPlaylistIndices = sortPlaylistByArtistAlpha()
+            setSortedIndices(sortedPlaylistIndices)
+
+            // get sorted track names
+            for (let i = 0; i < sortedPlaylistIndices.length; i++) {
+                handleAddSortedSong(songs[sortedPlaylistIndices[i]])
+            }
         } else if (type === "songLength") {
             //
         }
@@ -276,6 +304,12 @@ function CurrentPlaylist(props) {
                 text="Sort by Song Title"
                 width="20vw"
                 f={() => reorder("songAlpha")}
+            />
+            <br />
+            <MyButton
+                text="Sort by Artist Name"
+                width="20vw"
+                f={() => reorder("artistAlpha")}
             />
             <br />
 
