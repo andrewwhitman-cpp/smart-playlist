@@ -1,6 +1,7 @@
 import { Typography, Divider, Box, List, ListItem, ListItemText } from "@mui/material"
 import { useEffect, useState } from "react"
 import MyButton from "./MyButton"
+import BasicMenu from "./BasicMenu"
 
 function CurrentPlaylist(props) {
     const [songs, setSongs] = useState([])
@@ -9,6 +10,7 @@ function CurrentPlaylist(props) {
     const [sortedPlaylist, setSortedPlaylist] = useState([])
     const [sortedIndices, setSortedIndices] = useState([])
     const [newOrder, setNewOrder] = useState(false)
+    const [sortType, setSortType] = useState('none')
 
     useEffect(() => {
         handleClearSongs()
@@ -18,7 +20,6 @@ function CurrentPlaylist(props) {
         handleClearSortedIndices()
         fetchPlaylistTracks(props.token, props.url)
             .then(data => {
-                console.log(data)
                 for (let i = 0; i < data.items.length; i++) {
                     let songID = data.items[i].track.id
                     let songURI = data.items[i].track.uri
@@ -132,8 +133,6 @@ function CurrentPlaylist(props) {
         score += Math.abs(audioFeatures1['loudness'] - audioFeatures2['loudness'])
         // score += Math.abs(audioFeatures1['valence'] - audioFeatures2['valence'])
 
-        console.log(audioFeatures1)
-
         return { score }
     }
 
@@ -173,13 +172,53 @@ function CurrentPlaylist(props) {
         }
         score = simimlaritySum / n
 
+        console.log("new song index order: " + songOrder)
+
+        return songOrder
+    }
+
+    function sortPlaylistBySongAlpha() {
+        // Create an array of indices
+        let songOrder = songs.map((_, index) => index);
+
+        // Sort the indices based on the first element of the sub-arrays (song title)
+        songOrder.sort((a, b) => {
+            const songA = songs[a][0];
+            const songB = songs[b][0];
+            
+            // Compare the song title strings
+            if (songA < songB) return -1;
+            if (songA > songB) return 1;
+            return 0;
+          });
+        console.log("new song index order: " + songOrder)
+
+        return songOrder
+    }
+
+    function sortPlaylistByArtistAlpha() {
+        // Create an array of indices
+        let songOrder = songs.map((_, index) => index);
+
+        // Sort the indices based on the first element of the sub-arrays (song title)
+        songOrder.sort((a, b) => {
+            const songA = songs[a][1];
+            const songB = songs[b][1];
+            
+            // Compare the song title strings
+            if (songA < songB) return -1;
+            if (songA > songB) return 1;
+            return 0;
+          });
+        console.log("new song index order: " + songOrder)
+
         return songOrder
     }
 
     async function newPlaylist() {
         const method = 'POST'
         const headers = { Authorization: `Bearer ${props.token}`, 'Content-Type': 'application/json' }
-        const newTitle = props.title + " - Smart Sorted"
+        const newTitle = props.title + " - " + sortType
         const data = `{"name": "${newTitle}", "description": "Smart sorted playlist", "public": false}`
 
         const result = await fetch('https://api.spotify.com/v1/users/' + props.userID + '/playlists', {
@@ -209,31 +248,72 @@ function CurrentPlaylist(props) {
         return await result.json()
     }
 
-    async function reorder() {
+    async function reorder(type) {
+        handleClearSortedSongs()
+
+        if (type === 'none') {
+            setNewOrder(false)
+            return
+        }
+
         setNewOrder(true)
-        const audioFeatures = await fetchMultipleAudioFeatures(props.token, songIDs)
 
-        // create similarity matrix
-        const simMat = similarityMatrix(audioFeatures.audio_features)
+        if (type === "Smart Sorted") {
+            console.log("smart sorting...")
 
-        // sort playlist for high similarity with adjacent songs
-        const sortedPlaylistIndices = sortPlaylistBySimilarity(simMat)
-        setSortedIndices(sortedPlaylistIndices)
+            const audioFeatures = await fetchMultipleAudioFeatures(props.token, songIDs)
+            console.log(audioFeatures)
 
-        // get sorted track names
-        for (let i = 0; i < sortedPlaylistIndices.length; i++) {
-            handleAddSortedSong(songs[sortedPlaylistIndices[i]])
+            // create similarity matrix
+            const simMat = similarityMatrix(audioFeatures.audio_features)
+
+            // sort playlist for high similarity with adjacent songs
+            const sortedPlaylistIndices = sortPlaylistBySimilarity(simMat)
+            setSortedIndices(sortedPlaylistIndices)
+
+            // get sorted track names
+            for (let i = 0; i < sortedPlaylistIndices.length; i++) {
+                handleAddSortedSong(songs[sortedPlaylistIndices[i]])
+            }
+        } else if (type === "Alphabetically by Song") {
+            console.log("sorting alphabetically by song title...")
+
+            // sort playlist alphabetically by song title
+            const sortedPlaylistIndices = sortPlaylistBySongAlpha()
+            setSortedIndices(sortedPlaylistIndices)
+
+            // get sorted track names
+            for (let i = 0; i < sortedPlaylistIndices.length; i++) {
+                handleAddSortedSong(songs[sortedPlaylistIndices[i]])
+            }
+        } else if (type === "Alphabetically by Artist") {
+            console.log("sorting alphabetically by artist name...")
+
+            // sort playlist alphabetically by song title
+            const sortedPlaylistIndices = sortPlaylistByArtistAlpha()
+            setSortedIndices(sortedPlaylistIndices)
+
+            // get sorted track names
+            for (let i = 0; i < sortedPlaylistIndices.length; i++) {
+                handleAddSortedSong(songs[sortedPlaylistIndices[i]])
+            }
+        } else if (type === "songLength") {
+            //
         }
     }
 
     return (
         <>
             <hr></hr>
+
+            <BasicMenu f={(t) => setSortType(t)} />
+            
             <MyButton
-                text="Reorder"
-                width="20vw"
-                f={() => reorder()}
+                text="Sort"
+                width="5vw"
+                f={() => reorder(sortType)}
             />
+            
             <br />
 
             {newOrder &&
@@ -261,7 +341,6 @@ function CurrentPlaylist(props) {
 
             <Box
                 display="flex"
-                alignItems="center"
                 flex={1}
             >
                 <Box
@@ -277,7 +356,10 @@ function CurrentPlaylist(props) {
 
                     <List>
                         {songs.map((item, index) =>
-                            <ListItem key={index} sx={{ textAlign: "center" }}>
+                            <ListItem key={index} sx={{ 
+                                textAlign: "center",
+                                p: 0
+                            }}>
                                 <Typography variant="body1" component="span" sx={{ marginRight: 1 }}>
                                     {index + 1}.
                                 </Typography>
@@ -310,7 +392,10 @@ function CurrentPlaylist(props) {
 
                         <List>
                             {sortedPlaylist.map((item, index) =>
-                                <ListItem key={index} sx={{ textAlign: "center" }}>
+                                <ListItem key={index} sx={{ 
+                                    textAlign: "center",
+                                    p: 0
+                                }}>
                                     <Typography variant="body1" component="span" sx={{ marginRight: 1 }}>
                                         {index + 1}.
                                     </Typography>
