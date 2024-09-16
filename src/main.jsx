@@ -8,13 +8,19 @@ const theme = createTheme({
 	palette: {
 		primary: {
 			// main: '#20B2AA', // LightSeaGreen
-			main: '#3AB09E'
+			main: '#3AB09E',
+			dark: '#246B60',
+			light: '#85D6CA',
 		},
 		secondary: {
-			main: '#ACE1AF',
+			main: '#EBC484',
+			dark: '#E2AA50',
+			light: '#F4DDB9',
 		},
 		tertiary: {
-			main: '#F7E7CE',
+			main: '#999999',
+			dark: '#0A0A0A',
+			light: '#F5F5F5',
 		},
 		background: {
 			// default: '#F5F5F5', // Cool White
