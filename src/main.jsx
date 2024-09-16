@@ -9,8 +9,8 @@ const theme = createTheme({
 		primary: {
 			// main: '#20B2AA', // LightSeaGreen
 			main: '#3AB09E',
-			dark: '#246B60',
-			light: '#85D6CA',
+			dark: '#2E8A7C',
+			light: '#66CCBD',
 		},
 		secondary: {
 			main: '#EBC484',

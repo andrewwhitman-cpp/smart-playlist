@@ -51,9 +51,11 @@ export default function BasicMenu(props) {
 					sx={{
 						border: 1,
 						borderRadius: 2,
-						bgcolor: 'secondary.light',
-						":hover": { backgroundColor: 'secondary.main' },
-						textAlign: 'center'
+						bgcolor: 'primary.main',
+						borderColor: 'primary.main',
+						":hover": { backgroundColor: 'primary.dark', borderColor: 'primary.dark' },
+						color: 'background.default',
+						textAlign: 'center',
 					}}
 				>
 					<ListItemText sx={{ m: 0, px: 3 }}
