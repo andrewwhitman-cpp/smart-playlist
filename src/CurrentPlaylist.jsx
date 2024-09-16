@@ -218,7 +218,7 @@ function CurrentPlaylist(props) {
     async function newPlaylist() {
         const method = 'POST'
         const headers = { Authorization: `Bearer ${props.token}`, 'Content-Type': 'application/json' }
-        const newTitle = props.title + " - Smart Sorted"
+        const newTitle = props.title + " - " + sortType
         const data = `{"name": "${newTitle}", "description": "Smart sorted playlist", "public": false}`
 
         const result = await fetch('https://api.spotify.com/v1/users/' + props.userID + '/playlists', {
@@ -258,7 +258,7 @@ function CurrentPlaylist(props) {
 
         setNewOrder(true)
 
-        if (type === "smart") {
+        if (type === "Smart Sorted") {
             console.log("smart sorting...")
 
             const audioFeatures = await fetchMultipleAudioFeatures(props.token, songIDs)
@@ -275,7 +275,7 @@ function CurrentPlaylist(props) {
             for (let i = 0; i < sortedPlaylistIndices.length; i++) {
                 handleAddSortedSong(songs[sortedPlaylistIndices[i]])
             }
-        } else if (type === "alphaSong") {
+        } else if (type === "Alphabetically by Song") {
             console.log("sorting alphabetically by song title...")
 
             // sort playlist alphabetically by song title
@@ -286,7 +286,7 @@ function CurrentPlaylist(props) {
             for (let i = 0; i < sortedPlaylistIndices.length; i++) {
                 handleAddSortedSong(songs[sortedPlaylistIndices[i]])
             }
-        } else if (type === "alphaArtist") {
+        } else if (type === "Alphabetically by Artist") {
             console.log("sorting alphabetically by artist name...")
 
             // sort playlist alphabetically by song title

@@ -15,9 +15,9 @@ const options = [
 
 const sortType = [
 	'none',
-	'smart',
-	'alphaSong',
-	'alphaArtist'
+	'Smart Sorted',
+	'Alphabetically by Song',
+	'Alphabetically by Artist'
 ]
 
 export default function BasicMenu(props) {
