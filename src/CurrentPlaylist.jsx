@@ -10,6 +10,7 @@ function CurrentPlaylist(props) {
     const [sortedPlaylist, setSortedPlaylist] = useState([])
     const [sortedIndices, setSortedIndices] = useState([])
     const [newOrder, setNewOrder] = useState(false)
+    const [sortType, setSortType] = useState('none')
 
     useEffect(() => {
         handleClearSongs()
@@ -248,7 +249,15 @@ function CurrentPlaylist(props) {
     }
 
     async function reorder(type) {
+        handleClearSortedSongs()
+
+        if (type === 'none') {
+            setNewOrder(false)
+            return
+        }
+
         setNewOrder(true)
+
         if (type === "smart") {
             console.log("smart sorting...")
 
@@ -266,7 +275,7 @@ function CurrentPlaylist(props) {
             for (let i = 0; i < sortedPlaylistIndices.length; i++) {
                 handleAddSortedSong(songs[sortedPlaylistIndices[i]])
             }
-        } else if (type === "songAlpha") {
+        } else if (type === "alphaSong") {
             console.log("sorting alphabetically by song title...")
 
             // sort playlist alphabetically by song title
@@ -277,7 +286,7 @@ function CurrentPlaylist(props) {
             for (let i = 0; i < sortedPlaylistIndices.length; i++) {
                 handleAddSortedSong(songs[sortedPlaylistIndices[i]])
             }
-        } else if (type === "artistAlpha") {
+        } else if (type === "alphaArtist") {
             console.log("sorting alphabetically by artist name...")
 
             // sort playlist alphabetically by song title
@@ -297,12 +306,12 @@ function CurrentPlaylist(props) {
         <>
             <hr></hr>
 
-            <BasicMenu />
+            <BasicMenu f={(t) => setSortType(t)} />
             
             <MyButton
                 text="Sort"
                 width="5vw"
-                f={() => reorder("smart")}
+                f={() => reorder(sortType)}
             />
             
             <br />

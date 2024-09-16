@@ -13,6 +13,13 @@ const options = [
 	'Alphabetically - Artist'
 ];
 
+const sortType = [
+	'none',
+	'smart',
+	'alphaSong',
+	'alphaArtist'
+]
+
 export default function BasicMenu(props) {
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [selectedIndex, setSelectedIndex] = React.useState(0);
@@ -24,7 +31,7 @@ export default function BasicMenu(props) {
 	const handleMenuItemClick = (event, index) => {
 		setSelectedIndex(index);
 		setAnchorEl(null);
-		props.f(options[index])
+		props.f(sortType[index])
 	};
 
 	const handleClose = () => {
@@ -77,7 +84,7 @@ export default function BasicMenu(props) {
 				{options.map((option, index) => (
 					<MenuItem
 						key={option}
-						disabled={index === 3}
+						// disabled={index === 3}
 						selected={index === selectedIndex}
 						onClick={(event) => handleMenuItemClick(event, index)}
 					>
