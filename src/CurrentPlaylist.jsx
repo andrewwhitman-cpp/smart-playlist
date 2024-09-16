@@ -1,6 +1,7 @@
 import { Typography, Divider, Box, List, ListItem, ListItemText } from "@mui/material"
 import { useEffect, useState } from "react"
 import MyButton from "./MyButton"
+import BasicMenu from "./BasicMenu"
 
 function CurrentPlaylist(props) {
     const [songs, setSongs] = useState([])
@@ -295,23 +296,15 @@ function CurrentPlaylist(props) {
     return (
         <>
             <hr></hr>
+
+            <BasicMenu />
+            
             <MyButton
-                text="Smart Sort"
-                width="20vw"
+                text="Sort"
+                width="5vw"
                 f={() => reorder("smart")}
             />
-            <br />
-            <MyButton
-                text="Sort by Song Title"
-                width="20vw"
-                f={() => reorder("songAlpha")}
-            />
-            <br />
-            <MyButton
-                text="Sort by Artist Name"
-                width="20vw"
-                f={() => reorder("artistAlpha")}
-            />
+            
             <br />
 
             {newOrder &&
@@ -339,7 +332,6 @@ function CurrentPlaylist(props) {
 
             <Box
                 display="flex"
-                alignItems="center"
                 flex={1}
             >
                 <Box
@@ -355,7 +347,10 @@ function CurrentPlaylist(props) {
 
                     <List>
                         {songs.map((item, index) =>
-                            <ListItem key={index} sx={{ textAlign: "center" }}>
+                            <ListItem key={index} sx={{ 
+                                textAlign: "center",
+                                p: 0
+                            }}>
                                 <Typography variant="body1" component="span" sx={{ marginRight: 1 }}>
                                     {index + 1}.
                                 </Typography>
@@ -388,7 +383,10 @@ function CurrentPlaylist(props) {
 
                         <List>
                             {sortedPlaylist.map((item, index) =>
-                                <ListItem key={index} sx={{ textAlign: "center" }}>
+                                <ListItem key={index} sx={{ 
+                                    textAlign: "center",
+                                    p: 0
+                                }}>
                                     <Typography variant="body1" component="span" sx={{ marginRight: 1 }}>
                                         {index + 1}.
                                     </Typography>
