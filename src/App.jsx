@@ -129,37 +129,41 @@ function App() {
 		>
 			{profileName && <Header user={profileName} />}
 
-			<MyButton
-				text="My Playlists"
-				width="30vw"
-				active={!useSearch}
-				f={() => setUseSearch(false)}
-			/>
+			{!currentPlaylist &&
+				<>
+					<MyButton
+						text="My Playlists"
+						width="30vw"
+						active={!useSearch}
+						f={() => setUseSearch(false)}
+					/>
 
-			<MyButton
-				text="Search for Playlist"
-				width="30vw"
-				active={useSearch}
-				f={() => setUseSearch(true)}
-			/>
+					<MyButton
+						text="Search for Playlist"
+						width="30vw"
+						active={useSearch}
+						f={() => setUseSearch(true)}
+					/>
 
-			<hr></hr>
+					<hr></hr>
 
-			{accessToken &&
-				!useSearch &&
-				<UserPlaylists
-					token={accessToken}
-					userID={profileID}
-					toggle={useSearch}
-					f={(data) => setCurrentPlaylist(data)}
-				/>}
+					{accessToken &&
+						!useSearch &&
+						<UserPlaylists
+							token={accessToken}
+							userID={profileID}
+							toggle={useSearch}
+							f={(data) => setCurrentPlaylist(data)}
+						/>}
 
-			{accessToken &&
-				useSearch &&
-				<PlaylistSearch
-					token={accessToken}
-					f={(data) => setCurrentPlaylist(data)}
-				/>}
+					{accessToken &&
+						useSearch &&
+						<PlaylistSearch
+							token={accessToken}
+							f={(data) => setCurrentPlaylist(data)}
+						/>}
+				</>
+			}
 
 			{currentPlaylist &&
 				<CurrentPlaylist
@@ -169,7 +173,8 @@ function App() {
 					playlistID={currentPlaylist[0]}
 					title={currentPlaylist[1]}
 					url={currentPlaylist[3]}
-				/>}
+				/>
+			}
 
 			<hr />
 			{/* <Footer /> */}

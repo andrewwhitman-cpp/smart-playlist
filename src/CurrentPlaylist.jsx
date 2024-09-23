@@ -1,4 +1,4 @@
-import { Typography, Divider, Box, List, ListItem, ListItemText } from "@mui/material"
+import { Typography, Divider, Box, List, ListItem, ListItemText, IconButton } from "@mui/material"
 import { useEffect, useState } from "react"
 import MyButton from "./MyButton"
 import BasicMenu from "./BasicMenu"
@@ -304,7 +304,10 @@ function CurrentPlaylist(props) {
 
     return (
         <>
-            <hr></hr>
+            {/* <hr></hr> */}
+
+            <IconButton>
+            </IconButton>
 
             <BasicMenu f={(t) => setSortType(t)} />
             
